@@ -1,30 +1,15 @@
 #include "Maze.h"
 
-void printMaze(int** maze)
+Maze::Maze(int width, int height) 
 {
-    for (int i = 0; i < HEIGHT; i++)
-    {
-        for (int j = 0; j < WIDTH; j++)
-        {
-            cout << maze[i][j] << " ";
-        }
-        cout << endl;
-    }
-    cout << endl;
-}
+    grid = new int*[height];
 
-int** createMaze(int width, int height)
-{
-    // cout << "maze" << endl;
-    srand(time(0));
-    int** maze = new int*[height];
-
-    for (int i = 0; i < height; i++)
+    for (int i = 0; i < height; i++) 
     {
-        maze[i] = new int[width];
-        for (int j = 0; j < width; j++)
+        grid[i] = new int[width];
+        for (int j = 0; j < width; j++) 
         {
-            maze[i][j] = 0;
+            grid[i][j] = 0;
         }
     }
 
@@ -48,14 +33,17 @@ int** createMaze(int width, int height)
 
     cout << row << " " << col << endl;
 
-    maze[row][col] = 1;
+    grid[row][col] = 1;
 
-    generatePath(maze, row, col);
+    generatePath(grid, row, col);
+};
 
-    return maze;
+int Maze::getCell(int x, int y)
+{
+    return grid[x][y];
 }
 
-void generatePath(int** maze, int row, int col)
+void Maze::generatePath(int** grid, int row, int col)
 {
     int* directions = randomizeDirections();
     
@@ -65,38 +53,38 @@ void generatePath(int** maze, int row, int col)
         {
             case 0: // North
             if (row - 2 < 0) continue;
-            if (maze[row - 2][col] != 1)
+            if (grid[row - 2][col] != 1)
             {
-                maze[row - 1][col] = 1;
-                maze[row - 2][col] = 1;
-                generatePath(maze, row - 2, col);
+                grid[row - 1][col] = 1;
+                grid[row - 2][col] = 1;
+                generatePath(grid, row - 2, col);
             }
             break;
             case 1: // East
             if (col + 2 > WIDTH - 1) continue;
-            if (maze[row][col + 2] != 1)
+            if (grid[row][col + 2] != 1)
             {
-                maze[row][col + 1] = 1;
-                maze[row][col + 2] = 1;
-                generatePath(maze, row, col + 2);
+                grid[row][col + 1] = 1;
+                grid[row][col + 2] = 1;
+                generatePath(grid, row, col + 2);
             }
             break;
             case 2: // South
             if (row + 2 > HEIGHT - 1) continue;
-            if (maze[row + 2][col] != 1)
+            if (grid[row + 2][col] != 1)
             {
-                maze[row + 1][col] = 1;
-                maze[row + 2][col] = 1;
-                generatePath(maze, row + 2, col);
+                grid[row + 1][col] = 1;
+                grid[row + 2][col] = 1;
+                generatePath(grid, row + 2, col);
             }
             break;
             case 3: // West
             if (col - 2 < 0) continue;
-            if (maze[row][col - 2] != 1)
+            if (grid[row][col - 2] != 1)
             {
-                maze[row][col - 1] = 1;
-                maze[row][col - 2] = 1;
-                generatePath(maze, row, col - 2);
+                grid[row][col - 1] = 1;
+                grid[row][col - 2] = 1;
+                generatePath(grid, row, col - 2);
             }
             break;
             default:
@@ -106,7 +94,7 @@ void generatePath(int** maze, int row, int col)
     }
 }
 
-int* randomizeDirections()
+int* Maze::randomizeDirections()
 {
     int choice = rand() % 24;
     int* directions;
@@ -187,4 +175,19 @@ int* randomizeDirections()
         break;
     }
     return directions;
+}
+
+void Maze::printMaze()
+{
+    cout << "print" << endl;
+
+    for (int i = 0; i < HEIGHT; i++)
+    {
+        for (int j = 0; j < WIDTH; j++)
+        {
+            cout << grid[i][j] << " ";
+        }
+        cout << endl;
+    }
+    cout << endl;
 }

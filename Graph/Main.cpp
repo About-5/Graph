@@ -8,9 +8,9 @@ using namespace std;
 
 int main()
 {
-    int** maze = createMaze(WIDTH, HEIGHT);
+    Maze maze(WIDTH, HEIGHT);
 
-    printMaze(maze);
+    maze.printMaze();
 
     return 0;
 }

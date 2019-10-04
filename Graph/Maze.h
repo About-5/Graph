@@ -9,12 +9,13 @@ using namespace std;
 
 class Maze {
     public:
-    Maze::Maze(int width, int height);
+    Maze(int width, int height);
+    int getCell(int x, int y);
+    void generatePath(int** maze, int row, int col);
+    int* randomizeDirections();
+    void printMaze();
+    
     private:
     int** grid;
 };
 
-int** createMaze(int width, int height);
-void generatePath(int** maze, int row, int col);
-int* randomizeDirections();
-void printMaze(int** maze);
