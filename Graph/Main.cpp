@@ -3,7 +3,6 @@
 #include <iostream>
 #include <unistd.h>
 #include "Maze.h"
-#include "Solve.h"
 
 using namespace std;
 
@@ -13,6 +12,5 @@ int main()
 
     printMaze(maze);
 
-    dijkstra(maze);    
     return 0;
 }
